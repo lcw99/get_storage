@@ -1,4 +1,4 @@
-name: get_storage_plus
+name: get_storage_wasm
 description: A fast, extra light and synchronous key-value storage written entirely in Dart with WebAssembly support. Based on the original get_storage package.
 version: 2.1.2
 homepage: https://github.com/lcw99/get_storage
@@ -18,6 +18,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  test: ^1.26.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
