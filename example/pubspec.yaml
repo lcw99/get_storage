@@ -23,7 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  get_storage:
+  get_storage_plus:
     path: ../
   path_provider: ^2.1.5
   get: ^4.7.2

@@ -1,5 +1,5 @@
-library get_storage;
+library get_storage_plus;
 
-export 'package:get_storage/src/read_write_value.dart';
-export 'package:get_storage/src/storage_impl.dart';
-export 'package:get_storage/src/value.dart';
+export 'src/read_write_value.dart';
+export 'src/storage_impl.dart';
+export 'src/value.dart';

@@ -7,3 +7,7 @@ build/
 .vscode/
 .idea/
 .DS_Store
+
+# Specific problematic files
+example/android/example_android.iml
+example/example.iml

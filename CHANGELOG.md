@@ -2,6 +2,7 @@
 - Added WebAssembly (WASM) support for Flutter web
 - Improved performance and compatibility
 - Updated dependencies and documentation
+- Forked from original get_storage package with enhancements
 
 ## [2.1.1] 
 - Fix null exception in previous getx versions

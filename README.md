@@ -1,4 +1,7 @@
-# get_storage
+# get_storage_plus
+
+> **Note**: This package is based on the original [get_storage](https://pub.dev/packages/get_storage) package by [Jonny Borges](https://github.com/jonataslaw/get_storage), with additional features and improvements including WebAssembly support.
+
 A fast, extra light and synchronous key-value in memory, which backs up data to disk at each operation.
 It is written entirely in Dart and easily integrates with Get framework of Flutter.
 
@@ -22,7 +25,7 @@ The package automatically uses WebAssembly-compatible storage implementation whe
 ### Add to your pubspec:
 ```
 dependencies:
-  get_storage:
+  get_storage_plus:
 ```
 ### Install it
 
@@ -34,12 +37,26 @@ with `Flutter`:
 $  flutter packages get
 ```
 
+## About this Package
+
+This package (`get_storage_plus`) is based on the original [get_storage](https://pub.dev/packages/get_storage) package created by [Jonny Borges](https://github.com/jonataslaw). 
+
+### Key Improvements:
+- ✅ **WebAssembly (WASM) Support** - Full compatibility with Flutter's WASM compilation
+- ✅ **Enhanced Performance** - Optimized for modern Flutter versions
+- ✅ **Updated Dependencies** - Compatible with latest Flutter and Dart versions
+- ✅ **Improved Documentation** - Better examples and usage guides
+
+### Credits
+- Original package: [get_storage](https://pub.dev/packages/get_storage) by [Jonny Borges](https://github.com/jonataslaw)
+- Maintained by: [lcw99](https://github.com/lcw99)
+
 ### Import it
 
 Now in your `Dart` code, you can use: 
 
 ````dart
-import 'package:get_storage/get_storage.dart';
+import 'package:get_storage_plus/get_storage.dart';
 ````
 
 ### Initialize storage driver with await:

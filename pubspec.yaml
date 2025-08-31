@@ -1,5 +1,5 @@
-name: get_storage
-description: A fast, extra light and synchronous key-value storage written entirely in Dart
+name: get_storage_plus
+description: A fast, extra light and synchronous key-value storage written entirely in Dart with WebAssembly support. Based on the original get_storage package.
 version: 2.1.2
 homepage: https://github.com/lcw99/get_storage
 repository: https://github.com/lcw99/get_storage
