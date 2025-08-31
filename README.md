@@ -56,7 +56,7 @@ This package (`get_storage_plus`) is based on the original [get_storage](https:/
 Now in your `Dart` code, you can use: 
 
 ````dart
-import 'package:get_storage_plus/get_storage.dart';
+import 'package:get_storage_plus/get_storage_plus.dart';
 ````
 
 ### Initialize storage driver with await:
