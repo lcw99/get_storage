@@ -8,6 +8,11 @@ build/
 .idea/
 .DS_Store
 
-# Specific problematic files
+# Specific problematic files that are gitignored but checked in
 example/android/example_android.iml
 example/example.iml
+
+# Generated files that shouldn't be published
+**/*.iml
+**/gradle-wrapper.jar
+**/generated_plugin_registrant.cc

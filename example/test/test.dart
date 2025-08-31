@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:get_storage_plus/get_storage_plus.dart';
 
 void main() {
   final counter = 'counter';
