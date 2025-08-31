@@ -10,29 +10,39 @@ void main() async {
 
 class Controller extends GetxController {
   final box = GetStorage();
-  bool get isDark => box.read('darkmode') ?? false;
-  ThemeData get theme => isDark ? ThemeData.dark() : ThemeData.light();
-  void changeTheme(bool val) => box.write('darkmode', val);
+
+  RxBool isDark = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    isDark.value = box.read('darkmode') ?? false;
+  }
+
+  ThemeData get theme => isDark.value ? ThemeData.dark() : ThemeData.light();
+
+  void changeTheme(bool val) {
+    isDark.value = val;
+    box.write('darkmode', val);
+  }
 }
 
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(Controller());
-    return Observer(builder: (_) {
-      return MaterialApp(
-        theme: controller.theme,
-        home: Scaffold(
-          appBar: AppBar(title: Text("Get Storage")),
-          body: Center(
-            child: SwitchListTile(
-              value: controller.isDark,
-              title: Text("Touch to change ThemeMode"),
-              onChanged: controller.changeTheme,
+    return Obx(() => GetMaterialApp(
+          theme: controller.theme,
+          home: Scaffold(
+            appBar: AppBar(title: Text("Get Storage")),
+            body: Center(
+              child: SwitchListTile(
+                value: controller.isDark.value,
+                title: Text("Touch to change ThemeMode"),
+                onChanged: controller.changeTheme,
+              ),
             ),
           ),
-        ),
-      );
-    });
+        ));
   }
 }

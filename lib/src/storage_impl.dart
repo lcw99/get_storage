@@ -3,15 +3,12 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:get/utils.dart';
 
-import 'storage/html.dart' if (dart.library.io) 'storage/io.dart';
+import 'storage/web.dart' if (dart.library.io) 'storage/io.dart';
 import 'value.dart';
 
 /// Instantiate GetStorage to access storage driver apis
 class GetStorage {
-  factory GetStorage(
-      [String container = 'GetStorage',
-      String? path,
-      Map<String, dynamic>? initialData]) {
+  factory GetStorage([String container = 'GetStorage', String? path, Map<String, dynamic>? initialData]) {
     if (_sync.containsKey(container)) {
       return _sync[container]!;
     } else {
@@ -21,8 +18,7 @@ class GetStorage {
     }
   }
 
-  GetStorage._internal(String key,
-      [String? path, Map<String, dynamic>? initialData]) {
+  GetStorage._internal(String key, [String? path, Map<String, dynamic>? initialData]) {
     _concrete = StorageImpl(key, path);
     _initialData = initialData;
 

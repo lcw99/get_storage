@@ -1,3 +1,6 @@
+## [2.1.1] 
+- Fix null exception in previous getx versions
+
 ## [2.1.0] 
 - Add support to Getx5
 
