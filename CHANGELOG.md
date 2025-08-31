@@ -1,3 +1,8 @@
+## [2.1.2] 
+- Added WebAssembly (WASM) support for Flutter web
+- Improved performance and compatibility
+- Updated dependencies and documentation
+
 ## [2.1.1] 
 - Fix null exception in previous getx versions
 

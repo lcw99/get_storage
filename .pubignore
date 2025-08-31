@@ -1,0 +1,9 @@
+# Files to ignore when publishing to pub.dev
+*.iml
+example/android/gradle/wrapper/gradle-wrapper.jar
+example/linux/flutter/generated_plugin_registrant.cc
+.dart_tool/
+build/
+.vscode/
+.idea/
+.DS_Store
