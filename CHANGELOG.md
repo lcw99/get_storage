@@ -1,3 +1,10 @@
+## [2.1.4] 
+- Robust flush: `_writeToStorage` now catches `json.encode` failures, identifies non-encodable keys, removes them from storage, and flushes remaining data
+- Added `GetStorage.setLogHandler()` to route storage logs through your app's logger
+- Added `StorageLogLevel` enum and `GetStorage.logMessage()` for structured logging
+- Hardened `_readFromStorage` against corrupted localStorage data
+- Flush exceptions in `_flush()` are now logged
+
 ## [2.1.3] 
 - Updated `get` package to 4.7.2 for full WASM compatibility
 - Fixed dart:html compatibility issues with WebAssembly builds
