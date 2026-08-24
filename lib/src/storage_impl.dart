@@ -6,6 +6,15 @@ import 'package:get/utils.dart';
 import 'storage/web.dart' if (dart.library.io) 'storage/io.dart';
 import 'value.dart';
 
+/// Log level for storage operations.
+enum StorageLogLevel { debug, info, warn, error }
+
+/// Log callback type. Set via [GetStorage.setLogHandler] to route logs
+/// through your app's logger (e.g. saju_chat Logger).
+///
+/// If not set, logs are printed to console via [print].
+typedef StorageLogHandler = void Function(String tag, StorageLogLevel level, String message);
+
 /// Instantiate GetStorage to access storage driver apis
 class GetStorage {
   factory GetStorage([String container = 'GetStorage', String? path, Map<String, dynamic>? initialData]) {
@@ -29,6 +38,35 @@ class GetStorage {
   }
 
   static final Map<String, GetStorage> _sync = {};
+
+  static StorageLogHandler? _logHandler;
+
+  /// Set a log handler to route storage logs through your app's logger.
+  ///
+  /// ```dart
+  /// // In main.dart, after creating the Logger:
+  /// final logger = Logger('GetStorage');
+  /// GetStorage.setLogHandler((tag, level, message) {
+  ///   switch (level) {
+  ///     case StorageLogLevel.error: logger.error('[$tag] $message'); break;
+  ///     case StorageLogLevel.warn:  logger.warn('[$tag] $message'); break;
+  ///     case StorageLogLevel.info:  logger.info('[$tag] $message'); break;
+  ///     case StorageLogLevel.debug: logger.debug('[$tag] $message'); break;
+  ///   }
+  /// });
+  /// ```
+  static void setLogHandler(StorageLogHandler handler) {
+    _logHandler = handler;
+  }
+
+  /// Internal logging method. Logs are always captured (even in release).
+  static void logMessage(String tag, StorageLogLevel level, String message) {
+    if (_logHandler != null) {
+      _logHandler!(tag, level, message);
+    } else {
+      print('[GetStorage][$tag][${level.name}] $message');
+    }
+  }
 
   final microtask = Microtask();
 
@@ -141,6 +179,7 @@ class GetStorage {
     try {
       await _concrete.flush();
     } catch (e) {
+      GetStorage.logMessage(_concrete.fileName, StorageLogLevel.error, 'flush exception: $e');
       rethrow;
     }
     return;

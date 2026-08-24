@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
+
+import '../storage_impl.dart' show GetStorage, StorageLogLevel;
 import '../value.dart';
 
 class StorageImpl {
@@ -11,8 +13,7 @@ class StorageImpl {
   final String? path;
   final String fileName;
 
-  ValueStorage<Map<String, dynamic>> subject =
-      ValueStorage<Map<String, dynamic>>(<String, dynamic>{});
+  ValueStorage<Map<String, dynamic>> subject = ValueStorage<Map<String, dynamic>>(<String, dynamic>{});
 
   void clear() {
     localStorage.remove(fileName);
@@ -72,8 +73,37 @@ class StorageImpl {
   // }
 
   Future<void> _writeToStorage(Map<String, dynamic> data) async {
-    localStorage.update(fileName, (val) => json.encode(subject.value),
-        ifAbsent: () => json.encode(subject.value));
+    try {
+      final encoded = json.encode(subject.value);
+      localStorage.update(fileName, (val) => encoded, ifAbsent: () => encoded);
+    } catch (e) {
+      final badKeys = <String>[];
+      for (final entry in subject.value.entries) {
+        try {
+          json.encode(<String, dynamic>{entry.key: entry.value});
+        } catch (_) {
+          badKeys.add('${entry.key}(${entry.value.runtimeType})');
+        }
+      }
+      GetStorage.logMessage(
+          fileName,
+          StorageLogLevel.error,
+          'flush failed: $e\n'
+          'Non-encodable keys: $badKeys\n'
+          'All keys: ${subject.value.keys.toList()}');
+      // Remove bad keys from in-memory storage and flush sanitized map
+      for (final badKey in badKeys) {
+        final key = badKey.split('(').first;
+        subject.value.remove(key);
+        GetStorage.logMessage(fileName, StorageLogLevel.warn, 'removed corrupted key: $key');
+      }
+      if (subject.value.isNotEmpty) {
+        final encoded = json.encode(subject.value);
+        localStorage.update(fileName, (val) => encoded, ifAbsent: () => encoded);
+      } else {
+        GetStorage.logMessage(fileName, StorageLogLevel.warn, 'all keys non-encodable, skip flush');
+      }
+    }
   }
 
   Future<void> _readFromStorage() async {
